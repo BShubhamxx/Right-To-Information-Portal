@@ -5,7 +5,6 @@ export const en: Dictionary = {
   "a11y.decreaseText": "Decrease text size",
   "a11y.defaultText": "Default text size",
   "a11y.increaseText": "Increase text size",
-  "a11y.contrast": "Contrast",
   "common.continue": "Continue",
   "common.or": "or",
   "common.viewDetails": "View details",

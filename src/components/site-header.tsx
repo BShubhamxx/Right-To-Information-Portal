@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useI18n } from "@/lib/i18n";
 
@@ -23,43 +25,37 @@ const secondaryNav = [
 
 export function SiteHeader() {
   const { t } = useI18n();
+  const pathname = usePathname();
 
   return (
-    <header className="border-b border-slate-300 bg-white">
-      <div className="tricolour-rule" aria-hidden="true">
-        <span className="bg-[#C65D11]" />
-        <span className="bg-white" />
-        <span className="bg-[#138046]" />
-      </div>
-
-      <div className="bg-[#123B52] text-xs text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 lg:px-6">
+    <header className="border-b border-portal-border bg-white">
+      <div className="portal-utility-bar text-xs">
+        <div className="portal-container flex min-h-10 items-center justify-between gap-4">
           <span className="font-semibold">{t("nav.portal")}</span>
           <AccessibilityControls />
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-6">
-        <Link href="/" className="flex items-center gap-3" aria-label={t("nav.home")}>
-          <span className="grid h-10 w-10 place-items-center rounded-md bg-moss text-sm font-bold text-white" aria-hidden="true">
-            RT
-          </span>
+      <div className="portal-container flex min-h-24 items-center justify-between gap-6">
+        <Link href="/" className="flex shrink-0 items-center gap-3" aria-label={t("nav.home")}>
+          <Image src="/assets/indian-emblem.png" alt="" width={42} height={56} className="h-12 w-auto object-contain" aria-hidden="true" />
           <span className="min-w-0">
-            <strong className="block text-lg leading-5 text-[#123B52]">{t("brand.title")}</strong>
-            <span className="block text-xs leading-4 text-slate-600">{t("brand.subtitle")}</span>
+            <strong className="block text-2xl leading-7 text-portal-navy">RTI Online</strong>
+            <span className="hidden text-xs leading-4 text-slate-600 sm:block">Version 2.0 · An Initiative of Department of Personnel &amp; Training, Government of India</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm font-semibold text-[#123B52] lg:flex" aria-label="Primary navigation">
+        <nav className="hidden items-stretch gap-8 text-base portal-nav-link lg:flex" aria-label="Primary navigation">
           {primaryNav.map(([label, href]) => (
-            <Link key={label} href={href} className="transition hover:text-[#075985]">
+            <Link key={label} href={href} className={`flex items-center border-b-2 px-1 pt-1 transition hover:text-portal-blue ${pathname === href ? "border-portal-navy font-bold" : "border-transparent"}`}>
               {t(label)}
             </Link>
           ))}
         </nav>
 
+
         <details className="relative lg:hidden">
-          <summary className="cursor-pointer list-none rounded border border-slate-400 px-3 py-2 text-sm font-bold text-[#123B52]">
+          <summary className="cursor-pointer list-none rounded border border-portal-border px-4 py-3 text-sm font-bold text-portal-navy">
             {t("nav.menu")}
           </summary>
           <nav className="absolute right-0 z-10 mt-2 w-56 border border-slate-300 bg-white p-2 text-sm shadow-soft">
@@ -84,21 +80,6 @@ export function SiteHeader() {
         </details>
       </div>
 
-      <div className="hidden border-t border-slate-200 bg-slate-50 lg:block">
-        <nav className="mx-auto flex max-w-7xl items-center gap-6 px-6 py-2 text-xs font-semibold text-slate-700" aria-label="Service navigation">
-          {secondaryNav.map(([label, href]) => (
-            <Link key={label} href={href} className="transition hover:text-[#075985]">
-              {t(label)}
-            </Link>
-          ))}
-          <Link href="/login" className="ml-auto text-[#075985]">
-            {t("nav.demoSignIn")}
-          </Link>
-          <Link href="/auth/signout" className="text-slate-600">
-            {t("nav.signOut")}
-          </Link>
-        </nav>
-      </div>
     </header>
   );
 }

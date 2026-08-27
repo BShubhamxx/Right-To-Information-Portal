@@ -1,109 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { QuestionStarter } from "@/components/question-starter";
 import { SiteHeader } from "@/components/site-header";
-import { useI18n, type TranslationKey } from "@/lib/i18n";
+import { useI18n } from "@/lib/i18n";
 
 const services = [
-  ["nav.file", "Start a new information request to a Central Government public authority.", "/build", "File an RTI"],
-  ["nav.track", "Check the status, response or next steps for an existing application.", "/track", "Track application"],
-  ["nav.firstAppeal", "Appeal if a response is delayed or does not fully address your request.", "/appeal", "Start First Appeal"],
+  ["Submit First Appeal", "File an appeal if you are not satisfied with the initial response.", "/appeal", "⚖"],
+  ["User Manual", "Detailed instructions on how to use the RTI Online portal effectively.", "/help", "▤"],
+  ["FAQ", "Find answers to commonly asked questions about the RTI process.", "/faq", "?"],
 ] as const;
 
 export default function Home() {
-  const { t, locale } = useI18n();
-  const serviceDescriptions = locale === "hi"
-    ? ["केंद्रीय सरकारी लोक प्राधिकरण को नया जानकारी अनुरोध भेजें।", "मौजूदा आवेदन की स्थिति, उत्तर या अगला कदम देखें।", "उत्तर देर से मिले या अधूरा हो तो अपील करें।"]
-    : services.map((service) => service[1]);
-  const serviceActions = locale === "hi" ? ["RTI आवेदन करें", "आवेदन ट्रैक करें", "प्रथम अपील शुरू करें"] : services.map((service) => service[3]);
-
-  return (
-    <main className="min-h-screen bg-canvas">
-      <SiteHeader />
-
-      <section className="border-b border-slate-300 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,.85fr)] lg:items-start lg:px-6 lg:py-12">
-          <div className="space-y-6">
-            <div>
-              <p className="text-sm font-semibold text-[#075985]">{t("home.eyebrow")}</p>
-              <h1 className="mt-2 text-4xl font-bold tracking-tight text-[#123B52] sm:text-5xl">{t("home.title")}</h1>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-700">{t("home.intro")}</p>
-            </div>
-
-            <div className="max-w-4xl">
-              <QuestionStarter />
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4 text-sm">
-              <Link href="/track" className="font-semibold text-[#075985] underline underline-offset-4">{t("home.trackExisting")}</Link>
-              <span className="text-slate-500">{t("common.or")}</span>
-              <Link href="/before-you-file" className="font-semibold text-[#075985] underline underline-offset-4">{t("home.readBefore")}</Link>
-            </div>
-          </div>
-
-          <aside className="service-panel p-5 sm:p-6">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#075985]">{t("home.asideEyebrow")}</p>
-            <h2 className="mt-2 text-xl font-bold text-[#123B52]">{t("home.asideTitle")}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-700">{t("home.asideBody")}</p>
-            <dl className="mt-5 space-y-3 border-t border-slate-200 pt-5 text-sm">
-              <div className="flex items-start justify-between gap-4"><dt className="text-slate-600">{t("home.scopeLabel")}</dt><dd className="text-right font-semibold text-[#123B52]">{t("home.scopeValue")}</dd></div>
-              <div className="flex items-start justify-between gap-4"><dt className="text-slate-600">{t("home.feeLabel")}</dt><dd className="text-right font-semibold text-[#123B52]">{t("home.feeValue")}</dd></div>
-              <div className="flex items-start justify-between gap-4"><dt className="text-slate-600">{t("home.limitLabel")}</dt><dd className="text-right font-semibold text-[#123B52]">{t("home.limitValue")}</dd></div>
-              <div className="flex items-start justify-between gap-4"><dt className="text-slate-600">{t("home.appealLabel")}</dt><dd className="text-right font-semibold text-[#123B52]">{t("home.appealValue")}</dd></div>
-            </dl>
-          </aside>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-9 lg:px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-2xl font-bold text-[#123B52]">{t("home.services")}</h2>
-          <p className="text-sm text-slate-600">{t("home.servicesIntro")}</p>
-        </div>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {services.map(([title, , href], index) => (
-            <article className="service-panel flex h-full flex-col p-5" key={title}>
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-[#123B52]">{t(title as TranslationKey)}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-700">{serviceDescriptions[index]}</p>
-              </div>
-              <Link href={href} className="mt-5 inline-flex items-center text-sm font-bold text-[#075985] underline underline-offset-4">{serviceActions[index]} →</Link>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-y border-slate-300 bg-slate-100">
-        <div className="mx-auto max-w-7xl px-4 py-8 lg:px-6">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,.85fr)] lg:items-start">
-            <div>
-              <h2 className="text-2xl font-bold text-[#123B52]">{t("home.beforeTitle")}</h2>
-              <ul className="mt-4 grid gap-3 text-sm leading-6 text-slate-700 md:grid-cols-2">
-                <li>{t("home.before1")}</li>
-                <li>{t("home.before2")}</li>
-                <li>{t("home.before3")}</li>
-                <li>{t("home.before4")}</li>
-                <li>{t("home.before5")}</li>
-              </ul>
-            </div>
-            <div className="service-panel border-l-4 border-[#C65D11] bg-white p-5">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#075985]">{t("home.helpEyebrow")}</p>
-              <p className="mt-3 text-sm leading-6 text-slate-700">{t("home.helpBody")}</p>
-              <Link href="/before-you-file" className="mt-4 inline-block text-sm font-bold text-[#075985] underline underline-offset-4">{t("home.readBefore")} →</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer className="bg-[#123B52] text-sm text-white">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
-          <div><p className="font-bold">RTI Online</p><p className="mt-2 text-xs leading-5 text-white/75">{t("brand.tagline")}</p></div>
-          <div><p className="font-bold">{t("home.footerLinks")}</p><Link className="mt-2 block text-xs text-white/80 underline" href="/authorities">{t("nav.authorities")}</Link><Link className="mt-2 block text-xs text-white/80 underline" href="/faq">{t("nav.faq")}</Link></div>
-          <div><p className="font-bold">{t("nav.help")}</p><Link className="mt-2 block text-xs text-white/80 underline" href="/help">{locale === "hi" ? "RTI कैसे काम करता है" : "How RTI works"}</Link><Link className="mt-2 block text-xs text-white/80 underline" href="/contact">{t("nav.contact")}</Link></div>
-          <div><p className="font-bold">{t("home.footerPrototype")}</p><p className="mt-2 text-xs leading-5 text-white/75">{locale === "hi" ? "स्वतंत्र हैकाथॉन प्रोटोटाइप • आधिकारिक सरकारी सेवा नहीं" : "Independent hackathon prototype • Not an official government service"}</p></div>
-        </div>
-      </footer>
-    </main>
-  );
+  const { t } = useI18n();
+  return <main className="min-h-screen bg-portal-bg"><SiteHeader /><div className="portal-container"><section className="mt-12 rounded-lg border border-red-300 bg-red-100 px-5 py-4 text-sm leading-6 text-red-950 sm:px-6"><strong className="block">⚠ Please do not file RTI applications through this portal for public authorities under State Governments, including Government of NCT Delhi.</strong><span>If filed, the application would be returned, without refund of amount.</span></section><section id="main-content" className="grid items-center gap-10 py-12 lg:grid-cols-[1.15fr_.85fr] lg:py-14"><div><h1 className="max-w-2xl text-5xl font-bold leading-tight tracking-tight text-slate-950 sm:text-6xl">Empowering Citizens through Information</h1><p className="mt-7 max-w-2xl text-lg leading-8 text-slate-700">This is a portal to file RTI applications/first appeals online along with payment gateway. Payment can be made through internet banking, debit/credit cards of Master/Visa, RuPay cards and UPI.</p><div className="mt-9 flex flex-wrap gap-4"><Link href="/build" className="portal-primary-button inline-flex min-h-12 items-center rounded-md px-7 text-sm font-bold shadow-sm transition">Submit Request <span className="ml-4 text-xl">→</span></Link><Link href="/track" className="portal-secondary-button inline-flex min-h-12 items-center rounded-md px-7 text-sm font-semibold transition">⌕ <span className="ml-3">View Status</span></Link></div><p className="mt-6 text-sm italic text-slate-600">Please read instructions carefully while submitting request/appeal.</p></div><div className="portal-card p-6"><Image src="/assets/rti-lifecycle.png" alt="RTI application lifecycle" width={570} height={500} className="h-auto w-full object-contain" priority /></div></section><section className="grid gap-6 pb-12 md:grid-cols-3">{services.map(([title, description, href, icon]) => <Link href={href} key={title} className="portal-card p-6 transition hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,51,102,0.08)]"><span className="grid h-12 w-12 place-items-center rounded-full bg-slate-200 text-xl font-bold text-portal-primary" aria-hidden="true">{icon}</span><h2 className="mt-6 text-2xl font-medium text-slate-950">{title}</h2><p className="mt-3 text-base leading-7 text-slate-700">{description}</p></Link>)}</section><section className="portal-card mb-12 px-6 py-10 text-center sm:px-12"><span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-slate-200 text-2xl text-portal-primary" aria-hidden="true">◉</span><h2 className="mt-5 text-3xl font-medium text-slate-950">Help Desk</h2><p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-700">For any query or feedback related to this portal, please contact us during office hours (9:00 AM to 5:30 PM, Monday to Friday except Public Holidays). Due to high call volume, call waiting may occur.</p><div className="mt-7 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-slate-800"><span>⌕ 011-24010690/691</span><span>✉ helptiionline-dopt[at]nic[dot]in</span></div></section></div><footer className="portal-footer"><div className="portal-container flex flex-col gap-5 py-10 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-2xl font-bold text-portal-navy">RTI Online</p><p className="mt-2 text-xs text-slate-700">© 2024 Department of Personnel and Training. All rights reserved.</p></div><nav className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-700"><Link href="/contact">Privacy Policy</Link><Link href="/contact">Terms &amp; Conditions</Link><Link href="/contact">Contact Us</Link><Link href="/help">Help Desk</Link><Link href="/faq">Sitemap</Link></nav></div></footer></main>;
 }
