@@ -71,6 +71,9 @@ export function SiteHeader() {
             <Link className="block rounded px-3 py-2 font-semibold text-[#075985] hover:bg-slate-100" href="/login">
               Demo sign in
             </Link>
+            <Link className="block rounded px-3 py-2 text-slate-700 hover:bg-slate-100" href="/auth/signout">
+              Sign out
+            </Link>
           </nav>
         </details>
       </div>
@@ -84,6 +87,9 @@ export function SiteHeader() {
           ))}
           <Link href="/login" className="ml-auto text-[#075985]">
             Demo sign in
+          </Link>
+          <Link href="/auth/signout" className="text-slate-600">
+            Sign out
           </Link>
         </nav>
       </div>
