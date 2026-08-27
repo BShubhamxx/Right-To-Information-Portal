@@ -4,8 +4,8 @@ import type { NavigationResult } from "./types.ts";
 export function determineJurisdiction(question: string): NavigationResult {
   const entities = extractEntities(question);
   const text = question.toLowerCase();
-  const local = /property tax|municipal|corporation|ward|panchayat|local road|water bill/.test(text);
-  const central = /indian rail|railway|central government|union ministry|national highway|passport|income tax/.test(text);
+  const local = /property tax|municipal|corporation|ward|panchayat|local road|water bill|nagar nigam|पालिका|नगर निगम|वार्ड|पंचायत|संपत्ति कर|पानी बिल|स्थानीय सड़क/.test(text);
+  const central = /indian rail|railway|central government|union ministry|national highway|passport|income tax|kendriya|केंद्रीय|भारत सरकार|रेलवे|राष्ट्रीय राजमार्ग|पासपोर्ट|आयकर/.test(text);
   const jurisdiction = central ? "Central Government" : local ? "Local Government" : entities.state ? "State Government" : "Unknown";
   const authority = central ? "Demo Central Government Authority" : local && entities.location === "Pune" ? "Pune Municipal Corporation (demo)" : entities.topic.startsWith("Education") ? "Demo School Education Authority" : entities.topic.startsWith("Healthcare") ? "Demo Public Health Authority" : entities.topic.startsWith("Railways") ? "Demo Rail Services Authority" : "Demo Public Works Authority";
   const routeLabel = central ? "Central Government RTI" : local ? "State / Local RTI" : jurisdiction === "State Government" ? "State Government RTI" : "Review authority before filing";
