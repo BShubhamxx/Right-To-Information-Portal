@@ -1,0 +1,13 @@
+import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
+import { analyzeQuestionFallback, generateRtiDraftFallback } from "@/lib/ai";
+
+const question = "How much money was spent on road repairs in Pune in 2025?";
+const analysis = analyzeQuestionFallback(question);
+const draft = generateRtiDraftFallback(question, analysis);
+
+export default function ReviewPage() {
+  return (
+    <main className="min-h-screen bg-canvas"><SiteHeader /><div className="mx-auto max-w-4xl px-4 py-8 lg:px-6"><p className="text-sm text-slate-600">File an RTI / Review</p><h1 className="mt-1 text-3xl font-bold text-[#123B52]">Review your application</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-700">Check the information below before moving to applicant details and payment. This is a fictional demo application.</p><section className="service-panel mt-7"><div className="border-b border-slate-300 bg-slate-50 px-5 py-4"><h2 className="font-bold text-[#123B52]">Application checklist</h2></div><ul className="grid gap-3 p-5 text-sm text-slate-700 sm:grid-cols-2"><li><span className="mr-2 text-green-700">✓</span>Question is clearly defined</li><li><span className="mr-2 text-green-700">✓</span>Information requested is specific</li><li><span className="mr-2 text-green-700">✓</span>Time period is specified</li><li><span className="mr-2 text-green-700">✓</span>Suggested authority selected</li></ul></section><section className="service-panel mt-5"><div className="border-b border-slate-300 bg-slate-50 px-5 py-4"><h2 className="font-bold text-[#123B52]">Application details</h2></div><dl className="divide-y divide-slate-200 text-sm"><div className="grid gap-2 p-5 sm:grid-cols-[11rem_1fr]"><dt className="font-bold text-slate-600">Public authority</dt><dd className="font-semibold">{analysis.authority}</dd></div><div className="grid gap-2 p-5 sm:grid-cols-[11rem_1fr]"><dt className="font-bold text-slate-600">Application wording</dt><dd className="leading-7 text-slate-700">{draft}</dd></div><div className="grid gap-2 p-5 sm:grid-cols-[11rem_1fr]"><dt className="font-bold text-slate-600">Application fee</dt><dd>₹10 (demo payment)</dd></div></dl></section><div className="mt-6 flex flex-wrap items-center justify-between gap-3"><Link href="/build" className="min-h-11 px-3 py-3 text-sm font-bold text-[#075985] underline underline-offset-4">← Edit application</Link><span className="rounded bg-slate-200 px-4 py-3 text-sm font-bold text-slate-600">Applicant details and payment next</span></div><p className="mt-8 text-center text-xs text-slate-600">Independent hackathon prototype • Not an official government service</p></div></main>
+  );
+}

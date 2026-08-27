@@ -1,0 +1,11 @@
+import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
+
+const results = [
+  ["Road Development Expenditure — FY 2025–26", "Infrastructure", "Demo Public Works Authority", "2025–26", "Illustrative expenditure summary for selected road maintenance projects in Pune."],
+  ["School Infrastructure Works — FY 2025–26", "Education", "Demo School Education Authority", "2025–26", "Illustrative list of classroom repair and accessibility works."],
+];
+
+export default function PublicInformationPage() {
+  return <main className="min-h-screen bg-canvas"><SiteHeader /><div className="mx-auto max-w-5xl px-4 py-8 lg:px-6"><p className="text-sm text-slate-600">Public information / Illustrative demo data</p><h1 className="mt-1 text-3xl font-bold text-[#123B52]">Find information before filing</h1><p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">This demonstration searches representative published information. In production, this will search Supabase-backed public information records.</p><label className="mt-6 block text-sm font-bold text-[#123B52]" htmlFor="information-search">Search available information</label><input id="information-search" placeholder="Search topic, authority or year" className="mt-2 min-h-11 w-full rounded border border-slate-400 bg-white px-3 sm:max-w-2xl" /><div className="mt-6 space-y-4">{results.map(([title, category, authority, period, summary]) => <article className="service-panel p-5" key={title}><div className="flex flex-wrap items-center gap-2 text-xs"><span className="bg-slate-100 px-2 py-1 font-bold text-[#075985]">{category}</span><span className="text-slate-600">{period}</span></div><h2 className="mt-3 text-lg font-bold text-[#123B52]">{title}</h2><p className="mt-1 text-sm font-semibold text-slate-600">{authority}</p><p className="mt-3 text-sm leading-6 text-slate-700">{summary}</p><button type="button" className="mt-4 text-sm font-bold text-[#075985] underline underline-offset-4">View information</button></article>)}</div><div className="mt-7 border-t border-slate-300 pt-5"><p className="text-sm text-slate-700">Did not find what you need?</p><Link href="/build" className="mt-3 inline-block rounded bg-moss px-4 py-2 text-sm font-bold text-white">Continue to file an RTI</Link></div></div></main>;
+}
