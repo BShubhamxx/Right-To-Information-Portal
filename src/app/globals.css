@@ -16,7 +16,8 @@ button, input, textarea { font: inherit; }
 .intro { margin-top: 1rem; max-width: 42rem; color: rgb(31 41 55 / .72); font-size: 1rem; line-height: 1.7; }
 .field { width: 100%; resize: vertical; border: 1px solid rgb(31 41 55 / .32); border-radius: .375rem; background: white; padding: 1rem; color: #1F2937; font-size: 1rem; line-height: 1.65; box-shadow: none; }
 .field:focus { border-color: #C65D11; outline: none; }
-.tricolour-rule { height: 4px; background: linear-gradient(to right, #C65D11 0 33.33%, #fff 33.33% 66.66%, #138046 66.66%); }
+.tricolour-rule { display: flex; height: 4px; }
+.tricolour-rule > span { flex: 1 1 0%; }
 .service-panel { border: 1px solid #CBD5E1; border-radius: .5rem; background: #fff; box-shadow: 0 1px 2px rgb(15 59 82 / .05); }
 .high-contrast body { background: #fff; color: #000; }
 .high-contrast .service-panel, .high-contrast .field { border-color: #000; }
