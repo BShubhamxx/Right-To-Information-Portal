@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export async function POST(request: Request) {
+  if (process.env.ENABLE_DEMO_RESET !== "true") return NextResponse.json({ error: "Not found" }, { status: 404 });
   const expected = process.env.DEMO_RESET_TOKEN;
   const supplied = request.headers.get("x-demo-reset-token");
   if (!expected || !supplied || supplied !== expected) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

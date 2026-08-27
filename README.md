@@ -6,15 +6,19 @@ An independent hackathon prototype that reimagines the RTI journey around a citi
 
 ## Stack
 
-Next.js App Router, TypeScript, Tailwind CSS, Supabase (Auth, PostgreSQL, Storage), and Google Gemini with a deterministic local AI fallback.
+Next.js App Router, TypeScript, Tailwind CSS and Supabase (Auth, PostgreSQL, Storage). All request guidance uses deterministic local rules and fictional demo data; no external AI service is used.
 
 ## Getting started
 
-1. Copy `.env.example` to `.env.local` and add Supabase values when the backend phase begins.
+1. Copy `.env.example` to `.env.local` and add the public Supabase URL and publishable key.
 2. Install packages with `npm install`.
 3. Run `npm run dev`.
 
-`GEMINI_API_KEY` is optional. AI-assisted flows always work using the deterministic fallback if it is missing or Gemini is unavailable.
+`SUPABASE_SERVICE_ROLE_KEY`, `DEMO_RESET_TOKEN` and `ENABLE_DEMO_RESET` are optional server-only values for a controlled demo reset. Do not add them unless that route is explicitly needed.
+
+## Deployment
+
+The production Supabase database and seed data are already managed separately. Deploy the Next.js application without rerunning migrations or seed scripts. Configure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in the hosting platform for every environment. Leave demo reset disabled in normal production deployments.
 
 ## Current implementation
 
