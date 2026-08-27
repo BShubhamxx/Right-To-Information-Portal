@@ -5,7 +5,6 @@ export const hi: Dictionary = {
   "a11y.decreaseText": "टेक्स्ट छोटा करें",
   "a11y.defaultText": "सामान्य टेक्स्ट",
   "a11y.increaseText": "टेक्स्ट बड़ा करें",
-  "a11y.contrast": "कॉन्ट्रास्ट",
   "common.continue": "जारी रखें",
   "common.or": "या",
   "common.viewDetails": "विवरण देखें",

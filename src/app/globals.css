@@ -2,28 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: light; }
+:root {
+  color-scheme: light;
+  --portal-navy: #001e40;
+  --portal-primary: #003366;
+  --portal-blue: #206393;
+  --portal-bg: #f8f9fa;
+  --portal-border: #e0e4e8;
+  --portal-text: #191c1d;
+  --portal-muted: #43474f;
+}
 html[data-font-scale="small"] { font-size: 87.5%; }
 html[data-font-scale="large"] { font-size: 112.5%; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: #F4F7F9; color: #1F2937; font-family: "Noto Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+body { margin: 0; background: var(--portal-bg); color: var(--portal-text); font-family: "Public Sans", "Noto Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 button, input, textarea { font: inherit; }
 :focus-visible { outline: 3px solid #CC7A22; outline-offset: 3px; }
 .font-display { font-family: inherit; }
 .eyebrow { color: #075985; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .title { margin-top: .75rem; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 750; line-height: 1.16; letter-spacing: -.025em; }
 .intro { margin-top: 1rem; max-width: 42rem; color: rgb(31 41 55 / .72); font-size: 1rem; line-height: 1.7; }
-.field { width: 100%; resize: vertical; border: 1px solid rgb(31 41 55 / .32); border-radius: .375rem; background: white; padding: 1rem; color: #1F2937; font-size: 1rem; line-height: 1.65; box-shadow: none; }
-.field:focus { border-color: #C65D11; outline: none; }
+.field { width: 100%; resize: vertical; border: 1px solid var(--portal-border); border-radius: .5rem; background: white; padding: .875rem 1rem; color: var(--portal-text); font-size: 1rem; line-height: 1.65; box-shadow: none; }
+.field:focus { border-color: var(--portal-blue); outline: 2px solid rgb(32 99 147 / .2); outline-offset: 1px; }
 .tricolour-rule { display: flex; height: 4px; }
 .tricolour-rule > span { flex: 1 1 0%; }
-.service-panel { border: 1px solid #CBD5E1; border-radius: .5rem; background: #fff; box-shadow: 0 1px 2px rgb(15 59 82 / .05); }
-.high-contrast body { background: #fff; color: #000; }
-.high-contrast .service-panel, .high-contrast .field { border-color: #000; }
-.high-contrast a, .high-contrast button { text-decoration-thickness: 2px; }
+.service-panel { border: 1px solid var(--portal-border); border-radius: 1rem; background: #fff; box-shadow: 0 1px 2px rgb(0 30 64 / .04); }
+.portal-container { width: min(100% - 2rem, 80rem); margin-inline: auto; }
+.portal-card { border: 1px solid var(--portal-border); border-radius: 1rem; background: #fff; }
+.status-pill { display: inline-flex; align-items: center; border-radius: 9999px; padding: .4rem .85rem; font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.status-pill-info { background: #d5e3ff; color: #001b3c; }
+.status-pill-warning { background: #ffdad6; color: #93000a; }
+.status-pill-success { background: #e2f3e5; color: #185c24; }
+.portal-footer { border-top: 1px solid var(--portal-border); background: #e7e8e9; }
+.portal-utility-bar { background: var(--portal-navy); color: #fff; }
+.portal-primary-button { background: var(--portal-primary); color: #fff; }
+.portal-primary-button:hover { background: var(--portal-navy); }
+.portal-secondary-button { border: 2px solid var(--portal-blue); background: #fff; color: var(--portal-blue); }
+.portal-secondary-button:hover { background: #eef6ff; }
+.portal-nav-link { color: var(--portal-navy); }
 @media (max-width: 640px) {
   .title { font-size: clamp(1.9rem, 9vw, 2.5rem); }
   .service-panel { border-radius: .375rem; }
   button, a { -webkit-tap-highlight-color: transparent; }
 }
+@media (min-width: 1024px) { .portal-container { width: min(100% - 8rem, 80rem); } }

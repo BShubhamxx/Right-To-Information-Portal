@@ -5,7 +5,6 @@ export type TranslationKey =
   | "a11y.decreaseText"
   | "a11y.defaultText"
   | "a11y.increaseText"
-  | "a11y.contrast"
   | "common.continue"
   | "common.or"
   | "common.viewDetails"
