@@ -13,6 +13,7 @@ const secondaryNav = [
   ["First Appeal", "/appeal"],
   ["Second Appeal", "/second-appeal"],
   ["Public Authorities", "/authorities"],
+  ["Knowledge Library", "/knowledge"],
   ["FAQ", "/faq"],
   ["Contact", "/contact"],
 ] as const;
