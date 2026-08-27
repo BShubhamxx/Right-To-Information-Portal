@@ -1,6 +1,6 @@
-import { decomposeQuestion } from "./decomposition";
-import { extractEntities } from "./entities";
-import type { ReadinessResult } from "./types";
+import { decomposeQuestion } from "./decomposition.ts";
+import { extractEntities } from "./entities.ts";
+import type { ReadinessResult } from "./types.ts";
 
 export function calculateReadiness(question: string, authorityIdentified = true, supportingDocumentPresent = true): ReadinessResult {
   const entities = extractEntities(question); const decomposition = decomposeQuestion(question); const checks = [

@@ -1,4 +1,4 @@
-import type { ExtractedEntities } from "./types";
+import type { ExtractedEntities } from "./types.ts";
 
 const locations: Record<string, { label: string; state?: string }> = {
   pune: { label: "Pune", state: "Maharashtra" }, mumbai: { label: "Mumbai", state: "Maharashtra" }, nashik: { label: "Nashik", state: "Maharashtra" },

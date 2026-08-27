@@ -22,3 +22,8 @@ button, input, textarea { font: inherit; }
 .high-contrast body { background: #fff; color: #000; }
 .high-contrast .service-panel, .high-contrast .field { border-color: #000; }
 .high-contrast a, .high-contrast button { text-decoration-thickness: 2px; }
+@media (max-width: 640px) {
+  .title { font-size: clamp(1.9rem, 9vw, 2.5rem); }
+  .service-panel { border-radius: .375rem; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+}

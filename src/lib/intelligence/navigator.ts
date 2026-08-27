@@ -1,5 +1,5 @@
-import { extractEntities } from "./entities";
-import type { NavigationResult } from "./types";
+import { extractEntities } from "./entities.ts";
+import type { NavigationResult } from "./types.ts";
 
 export function determineJurisdiction(question: string): NavigationResult {
   const entities = extractEntities(question);

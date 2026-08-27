@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ChangeEvent, useMemo, useState } from "react";
 import { analyzeQuestionFallback, generateRtiDraftFallback } from "@/lib/ai";
+import { calculateReadiness, decomposeQuestion, determineJurisdiction } from "@/lib/intelligence";
 import { SiteHeader } from "@/components/site-header";
 
 const defaultQuestion = "How much money was spent on road repairs in Pune in 2025?";
@@ -24,10 +25,13 @@ export function RTIBuilder() {
   const [paymentMethod, setPaymentMethod] = useState("UPI");
   const [submitted, setSubmitted] = useState(false);
   const analysis = useMemo(() => analyzeQuestionFallback(question || defaultQuestion), [question]);
+  const navigation = useMemo(() => determineJurisdiction(question || defaultQuestion), [question]);
+  const decomposition = useMemo(() => decomposeQuestion(question || defaultQuestion), [question]);
+  const readiness = useMemo(() => calculateReadiness(question || defaultQuestion, navigation.jurisdiction !== "Unknown"), [question, navigation.jurisdiction]);
   const fee = bpl === "Yes" ? 0 : 10;
 
   function next() {
-    if (step === 0) setDraft(generateRtiDraftFallback(question || defaultQuestion, analysis));
+    if (step === 0) setDraft(`${generateRtiDraftFallback(question || defaultQuestion, analysis)}\n\nSuggested route: ${navigation.routeLabel}. Information groups identified: ${decomposition.requests.map((request) => request.label).join(", ")}. Readiness: ${readiness.state}.`);
     setStep((current) => Math.min(current + 1, 5));
   }
   function handleFile(event: ChangeEvent<HTMLInputElement>) {

@@ -1,5 +1,5 @@
-import { extractEntities } from "./entities";
-import type { DecomposedRequest } from "./types";
+import { extractEntities } from "./entities.ts";
+import type { DecomposedRequest } from "./types.ts";
 
 const groups: [string, RegExp, string][] = [["Budget and expenditure", /budget|spend|spent|expenditure|allocated|allocation|cost/, "Expenditure"], ["Contracts and contractors", /contract|contractor|tender|vendor|work order/, "Contracts"], ["Project completion", /complete|completed|completion|progress|status|projects?/, "Project status"], ["Complaints", /complaint|grievance/, "Complaints"], ["Records and documents", /record|document|file|minutes|report/, "Records"]];
 export function decomposeQuestion(question: string): { requests: DecomposedRequest[]; hasDifferentOwners: boolean } {
