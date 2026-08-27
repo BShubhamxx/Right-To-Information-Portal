@@ -16,7 +16,7 @@ export function QuestionStarter() {
   function submit(event: FormEvent) {
     event.preventDefault();
     const query = question.trim();
-    router.push(query ? `/build?question=${encodeURIComponent(query)}` : "/build");
+    router.push(query ? `/check?question=${encodeURIComponent(query)}` : "/build");
   }
 
   return (

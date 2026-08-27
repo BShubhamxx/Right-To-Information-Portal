@@ -1,0 +1,14 @@
+-- Fictional records for the deterministic intelligence demo. Run after 0002_intelligence_layer.sql.
+update public.authorities set jurisdiction_type='Local Government', state='Maharashtra', city='Pune', keywords=array['pune','property tax','roads','municipal','local'] where name='Demo Public Works Authority';
+update public.authorities set jurisdiction_type='Central Government', keywords=array['railway','station','transport','central'] where name='Demo Rail Services Authority';
+update public.authorities set jurisdiction_type='Central Government', keywords=array['school','education','infrastructure'] where name='Demo School Education Authority';
+update public.authorities set jurisdiction_type='Central Government', keywords=array['hospital','health','equipment','procurement'] where name='Demo Public Health Authority';
+insert into public.public_information (title, category, topic, jurisdiction_type, location, year, summary, content, keywords, demo_only)
+select 'Road Development Expenditure — FY 2025–26', 'Infrastructure', 'Road repair expenditure', 'Local Government', 'Pune', '2025–26', 'Illustrative totals: ₹84.2 crore allocated, ₹71.6 crore spent and 143 projects completed.', 'This fictional record provides aggregate expenditure only. Project-wise contractor and work-order details may still require an RTI request.', array['road','repair','pune','expenditure','budget','projects'], true
+where not exists (select 1 from public.public_information where title='Road Development Expenditure — FY 2025–26');
+insert into public.knowledge_items (title, category, topic, information_type, example_question, example_request, authority_category, keywords, explanation)
+values
+('Road project expenditure','Government spending','Road construction','Expenditure','How much was spent on road repairs in Pune in 2025?','Please provide project-wise sanctioned amount, expenditure and completion records for road repair works in Pune during FY 2025–26.','Local infrastructure authority',array['road','repair','pune','spending'],'Illustrative example for understanding public infrastructure spending.'),
+('Road contracts','Contracts','Road construction','Contracts','Which contractors received road repair work?','Please provide contractor names, tender values, work orders and completion status for road repair projects in Pune during FY 2025–26.','Local infrastructure authority',array['road','contractor','tender','work order'],'Illustrative example for requesting contract records.'),
+('Railway station redevelopment','Transport','Railways','Expenditure','How much was spent on station redevelopment?','Please provide sanctioned and actual expenditure records for station redevelopment projects during the requested financial year.','Central transport authority',array['railway','station','redevelopment','spending'],'Illustrative example for a Central Government transport request.')
+on conflict do nothing;

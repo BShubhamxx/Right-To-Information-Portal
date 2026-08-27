@@ -8,7 +8,7 @@ This is a greenfield Next.js App Router application. The implementation starts w
 
 The citizen journey is `Question → Understand → Prepare → Submit → Track → Act → Resolve`.
 
-The browser renders interaction and presentation. Next.js route handlers/server actions own validation and mutations. Supabase is the sole persistent system of record; it provides Auth, PostgreSQL and Storage. The server-only AI layer first attempts Gemini and uses a deterministic fallback for every operation if Gemini is unavailable.
+The browser renders interaction and presentation. Next.js route handlers/server actions own validation and mutations. Supabase is the sole persistent system of record; it provides Auth, PostgreSQL and Storage. All intelligent assistance is implemented locally with deterministic rules and curated templates; no external AI service is required.
 
 ## Route map
 
@@ -31,7 +31,7 @@ The browser renders interaction and presentation. Next.js route handlers/server 
 
 ## AI and fallback architecture
 
-`lib/ai` is the only layer allowed to call Gemini. Its public interface has typed operations for question analysis, RTI wording, appeal wording, and response summaries. `fallback.ts` provides deterministic, testable equivalents; the UI never receives a provider-specific result or a raw provider error.
+`lib/intelligence` owns deterministic entity extraction, routing, decomposition, readiness and knowledge suggestions. Existing `lib/ai` exports remain compatibility wrappers for deterministic wording helpers.
 
 ## Supabase schema plan
 
@@ -41,7 +41,7 @@ The first migration will create `profiles`, `authorities`, `rti_applications`, `
 
 1. Design system and application shell — in progress
 2. Landing and RTI Builder — in progress
-3. Gemini integration and deterministic fallback
+3. Deterministic intelligence layer
 4. Supabase schema, authentication and persistence
 5. Submission and mock payment
 6. Dashboard, lifecycle and timeline
@@ -52,4 +52,4 @@ The first migration will create `profiles`, `authorities`, `rti_applications`, `
 
 ## Deployment plan
 
-Vercel hosts the Next.js application. Environment values are supplied through Vercel and documented in `.env.example`. Supabase migrations and a reproducible demo seed run before deployment. `GEMINI_API_KEY` is optional: missing or failed Gemini requests use the local deterministic provider.
+Vercel hosts the Next.js application. Environment values are supplied through Vercel and documented in `.env.example`. Supabase migrations and a reproducible demo seed run before deployment. Intelligence features require no API keys.

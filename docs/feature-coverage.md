@@ -29,7 +29,7 @@ This document distinguishes the user-facing prototype from the planned productio
 - Create the designated synthetic Demo Citizen in Supabase Auth, then seed its applications, timeline events, payment events, notifications, appeal and response document.
 - Replace the demonstrative route data with Supabase queries and server actions; all submissions, edits, uploads and payment transitions must persist through RLS-protected operations.
 - Connect the provided browser/server Supabase clients to cookie refresh middleware and implement demo login/logout.
-- Add the server-only Gemini implementation behind `lib/ai`, retaining the existing deterministic fallback for every operation.
+- Replace the compatibility helpers in `lib/ai` with the new local deterministic `lib/intelligence` services.
 - Store document uploads in Supabase Storage and use signed URLs for document preview/download.
 - Persist mock payment, reconciliation, notification and lifecycle state transitions. Add a protected demo-reset operation.
 - Add automated tests for fallback analysis, form validation, payment transitions, lifecycle transitions and appeals.
