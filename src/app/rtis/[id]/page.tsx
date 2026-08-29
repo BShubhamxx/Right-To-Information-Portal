@@ -42,7 +42,8 @@ export default async function RTIDetailPage({ params }: { params: Promise<{ id: 
   const timeline = events.length ? events : fallbackEvents;
   const [meaning, nextAction, expectedUpdate] = statusGuidance(application.status, application.response_due_at);
   const actionNeeded = ["RESPONSE_OVERDUE", "APPEAL_AVAILABLE", "SUPPORTING_DOCUMENT_REQUIRED", "ADDITIONAL_FEE_REQUIRED"].includes(application.status);
-  const authorityName = Array.isArray(application.authority) ? application.authority[0]?.name : application.authority?.name;
+  const authority = application.authority as unknown as { name: string } | { name: string }[] | null;
+  const authorityName = Array.isArray(authority) ? authority[0]?.name : authority?.name;
 
   return <main className="min-h-screen bg-canvas"><SiteHeader /><div className="mx-auto max-w-5xl px-4 py-8 lg:px-6">
     <p className="text-sm text-slate-600">My RTIs / Case record</p>
