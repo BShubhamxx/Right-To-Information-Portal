@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -55,10 +56,10 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 lg:px-6">
         <Link href="/" className="flex items-center gap-3" aria-label={t("nav.home")}>
-          <span className="grid h-10 w-10 place-items-center rounded-md bg-moss text-sm font-bold text-white" aria-hidden="true">
-            RT
+          <span className="grid h-14 w-12 shrink-0 place-items-center overflow-hidden rounded-sm" aria-hidden="true">
+            <Image src="/rti-emblem.png" alt="" width={48} height={56} className="h-full w-auto object-contain mix-blend-multiply" priority />
           </span>
           <span className="min-w-0">
             <strong className="block text-lg leading-5 text-[#123B52]">{t("brand.title")}</strong>
