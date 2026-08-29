@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useI18n } from "@/lib/i18n";
+import { createClient } from "@/lib/client";
 
 const primaryNav = [
   ["nav.home", "/"],
@@ -23,6 +26,19 @@ const secondaryNav = [
 
 export function SiteHeader() {
   const { t } = useI18n();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      if (event === "SIGNED_OUT") setUser(null);
+    });
+    return () => listener.subscription.unsubscribe();
+  }, []);
+
+  const displayName = user?.user_metadata?.name || user?.email?.split("@")[0] || "Citizen";
 
   return (
     <header className="border-b border-slate-300 bg-white">
@@ -74,12 +90,15 @@ export function SiteHeader() {
                 {t(label)}
               </Link>
             ))}
-            <Link className="block rounded px-3 py-2 font-semibold text-[#075985] hover:bg-slate-100" href="/login">
-              {t("nav.demoSignIn")}
-            </Link>
-            <Link className="block rounded px-3 py-2 text-slate-700 hover:bg-slate-100" href="/auth/signout">
-              {t("nav.signOut")}
-            </Link>
+            {user ? (
+              <>
+                <div className="mt-2 rounded bg-blue-50 px-3 py-2 text-xs text-slate-700">Signed in as <span className="font-bold text-[#123B52]">{displayName}</span></div>
+                <Link className="block rounded px-3 py-2 font-semibold text-[#075985] hover:bg-slate-100" href="/dashboard">View My RTIs</Link>
+                <Link className="block rounded px-3 py-2 text-slate-700 hover:bg-slate-100" href="/auth/signout">{t("nav.signOut")}</Link>
+              </>
+            ) : (
+              <Link className="block rounded px-3 py-2 font-semibold text-[#075985] hover:bg-slate-100" href="/login">{t("nav.demoSignIn")}</Link>
+            )}
           </nav>
         </details>
       </div>
@@ -91,12 +110,15 @@ export function SiteHeader() {
               {t(label)}
             </Link>
           ))}
-          <Link href="/login" className="ml-auto text-[#075985]">
-            {t("nav.demoSignIn")}
-          </Link>
-          <Link href="/auth/signout" className="text-slate-600">
-            {t("nav.signOut")}
-          </Link>
+          {user ? (
+            <div className="ml-auto flex items-center gap-4">
+              <span className="max-w-[12rem] truncate text-slate-600">Signed in: <span className="font-bold text-[#123B52]">{displayName}</span></span>
+              <Link href="/dashboard" className="text-[#075985]">Account</Link>
+              <Link href="/auth/signout" className="text-slate-600">{t("nav.signOut")}</Link>
+            </div>
+          ) : (
+            <Link href="/login" className="ml-auto text-[#075985]">{t("nav.demoSignIn")}</Link>
+          )}
         </nav>
       </div>
     </header>
