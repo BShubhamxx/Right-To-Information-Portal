@@ -1,115 +1,140 @@
 # RTI — Ask. Track. Know.
 
-An independent hackathon prototype that reimagines the RTI journey around a citizen's question instead of government terminology and forms.
+An independent hackathon prototype that redesigns the RTI journey around the citizen’s question. It helps people understand what to ask, check whether information may already be available, identify a likely route, improve the request, and then file and track it through a clear public-service interface.
 
-> **Note**: This is an independent hackathon prototype. Not an official government service. All people, authorities, applications, payments and documents are fictional demo data.
+> This is an independent hackathon prototype, not an official Government of India service. All authorities, applications, payments, responses, notifications, and documents are fictional demo data.
 
-## Stack
+## Product flow
 
-- **Frontend**: Next.js 15 App Router, TypeScript, Tailwind CSS
-- **Backend**: Supabase (Auth, PostgreSQL, Storage)
-- **AI**: Deterministic local rules for request analysis
-- **Architecture**: Browser renders UI; server actions handle validation and mutations
+**Ask → Check → Route → Decompose → Improve → Validate → File**
 
-## Getting started
+- Ask a question in plain language.
+- Check illustrative public information before filing.
+- Receive deterministic routing guidance for Central, State, or local matters.
+- Review multiple information requests in one question.
+- Improve wording and assess request readiness.
+- Complete a pre-flight check before filing.
+- Submit, track, view timelines, responses, payments, and appeal options.
+
+## Implemented features
+
+### Public citizen tools
+
+- RTI homepage with natural-language question entry
+- Check Before You File
+- RTI Navigator
+- Question Decomposition
+- RTI Readiness
+- Filing pre-flight guidance
+- Public Authority Directory with search and expandable details
+- RTI Knowledge Library
+- Before You File guidance, FAQ, help, and contact pages
+- Registration-number RTI tracking
+
+### RTI lifecycle
+
+- Guided RTI application flow with applicant details, BPL support, supporting-document handling, review, mock payment, and submission
+- Unique synthetic registration numbers
+- Account-linked applications
+- Dynamic application case records with Supabase-backed timeline, authority, payment, and response data
+- My RTIs dashboard with account-specific applications and status summaries
+- First Appeal and Second Appeal handoff journeys
+- Notifications and payment status views
+
+### Authentication and access
+
+- Supabase Auth sign-in and account creation
+- Demo sign-in credentials shown in the sign-in experience
+- Public guidance tools available without sign-in
+- Account dashboard, notifications, appeals, and final filing protected by authentication
+- New applications are stored under the signed-in account
+
+### Accessibility and language
+
+- English and Hindi localization across the main citizen journey
+- Font-size controls, contrast control, keyboard-visible focus states, accessible labels, and responsive layouts
+- Government-service visual language: navy, white, neutral grey, restrained saffron/green accents, structured panels, and clear typography
+
+### Deterministic intelligence
+
+No external AI service or API key is required.
+
+- Keyword and phrase matching
+- Location, topic, information-type, and time-period extraction
+- Jurisdiction and authority mapping
+- Public-information matching
+- Question decomposition
+- Request readiness and pre-flight checks
+- Curated knowledge examples and request templates
+
+## Technology
+
+- Next.js 15 App Router
+- React 19 and TypeScript
+- Tailwind CSS
+- Supabase Auth, PostgreSQL, Storage, and Row-Level Security
+- Deterministic local intelligence modules
+
+## Local setup
 
 ### Prerequisites
+
 - Node.js 18+
-- npm or yarn
-- A Supabase account (free tier available)
+- npm
+- A Supabase project
 
-### Setup
+### Environment variables
 
-1. **Create Supabase project**
-   ```
-   Visit supabase.com and create a new project
-   ```
+Create `.env.local` from `.env.example`:
 
-2. **Clone and configure**
-   ```bash
-   cp .env.example .env.local
-   ```
-   Add from Supabase project settings:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+```ini
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-public-anon-or-publishable-key
+```
 
-3. **Initialize database**
-   - In Supabase SQL Editor, run: `supabase/migrations/0001_rti_core.sql`
-   - Then run: `supabase/seed.sql`
-   - Create a "Demo Citizen" user in Supabase Auth
+Only public Supabase connection values belong in the browser. Never commit service-role keys, access tokens, or database passwords.
 
-4. **Run locally**
-   ```bash
-   npm install
-   npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000)
+### Database
+
+The project uses these existing Supabase resources:
+
+- `supabase/migrations/0001_rti_core.sql`
+- `supabase/migrations/0002_intelligence_layer.sql`
+- `supabase/seed.sql`
+- `supabase/seed-intelligence.sql`
+
+Apply migrations and seed data once for a new Supabase project. Existing synchronized environments should not be reset or reseeded.
+
+### Run
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## Validation
+
+```bash
+npm run lint
+npm test
+npm run build
+```
 
 ## Deployment
 
-Deploy to **Vercel** (recommended for Next.js) or your preferred host.
+Deploy to Vercel or another Node.js-compatible Next.js host.
 
-### Steps
+Configure these environment variables in the hosting platform:
 
-1. **Set environment variables** in your hosting platform:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 
-2. **Initialize production database**
-   - Apply migration: `supabase/migrations/0001_rti_core.sql`
-   - Run seed: `supabase/seed.sql`
-   - Create Demo Citizen user in Auth
+The deployed application connects to the existing Supabase project. Supabase migrations, seed data, Auth users, Storage buckets, and Row-Level Security remain managed by Supabase.
 
-3. **Deploy**
-   ```bash
-   git push  # Auto-deploys to Vercel
-   ```
+## Project references
 
-Supabase manages your production database independently. Demo reset is disabled by default (recommended for production).
-
-## Current implementation
-
-### ✓ Complete
-
-- Public service design system and navigation
-- Natural-language question entry
-- Guided six-stage RTI filing flow
-- Authority directory with search
-- RTI tracking and lookup
-- Dashboard and action list
-- RTI detail view with timeline
-- First Appeal workflow
-- FAQ and help center
-- Supabase schema with Row-Level Security
-
-### ◇ Remaining
-
-- Wire routes to live Supabase queries
-- Implement login/logout flow
-- Enable document upload and signed URLs
-- Add automated tests
-- Accessibility audit
-
-See [architecture.md](docs/architecture.md) and [feature-coverage.md](docs/feature-coverage.md) for details.
-
-## What's real vs demo
-
-### Real (production-ready)
-- Application structure and routes
-- Supabase database schema and Row-Level Security
-- Authentication and session management
-- Server actions and validation
-- Storage paths and file handling
-
-### Demo (fictional)
-- All authorities and their details
-- RTI applications and statuses
-- Responses, payments, and timeline events
-- Appeals and notifications
-- Citizen data and case history
-
-This separation ensures a complete, convincing experience while remaining clearly non-official.
-
-## Codex
-
-This prototype was designed and implemented as a Codex-assisted hackathon build. The key design principle is **clear separation** between the real application infrastructure (routes, database, authentication) and simulated government data (authorities, responses, payments). This allows the demo to be feature-complete and convincing while remaining unmistakably non-official.
+- [Architecture](docs/architecture.md)
+- [Feature coverage](docs/feature-coverage.md)
+- [New features specification](docs/NEW_FEATURES.md)
