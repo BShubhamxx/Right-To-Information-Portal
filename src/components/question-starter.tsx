@@ -40,6 +40,7 @@ export function QuestionStarter() {
 
       <div className="mt-5 border-t border-slate-200 pt-4">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#075985]">{t("starter.examples")}</p>
+        <p className="mt-1 text-sm text-slate-600">Choose a complete question with the information type, place and time period where relevant. You can refine it in the readiness check.</p>
         <div className="mt-3 grid gap-2 sm:grid-cols-3" aria-label="Question examples">
           {examples.map((example) => (
             <button
